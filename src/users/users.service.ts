@@ -32,7 +32,9 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne({ where: { email } });
+    const user = this.userRepository.findOne({where:{email}});
+    console.log(await user);
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {

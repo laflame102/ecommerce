@@ -11,6 +11,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PetsModule } from './pets/pets.module';
 import { join } from 'path';
 import { OwnerModule } from './owner/owner.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { StudentsModule } from './students/students.module';
+import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
@@ -36,6 +39,14 @@ import { OwnerModule } from './owner/owner.module';
     }),
     PetsModule,
     OwnerModule,
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 30 * 1000,
+      store: redisStore,
+      host: 'localhost',
+      port: 6379,
+    }),
+    StudentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
