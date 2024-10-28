@@ -19,7 +19,7 @@ export class StudentsService {
     }
 
     const studentsData = await this.petRepository.find();
-      await this.cacheManager.set('students', studentsData);
-      return studentsData
+    await this.cacheManager.set('students', studentsData);
+    return studentsData;
   }
 }
